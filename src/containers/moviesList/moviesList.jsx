@@ -1,7 +1,7 @@
 import React from 'react';
 import { MovieCard } from '../../components/movieCard';
 import { Filter } from '../../components/filter';
-import { ErrorBoundary } from '../ErrorBoundary';
+import { ErrorBoundary } from '../errorBoundary';
 
 const movies = [
   {
