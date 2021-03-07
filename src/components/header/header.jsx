@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../images/logo.svg';
-import { AddMovieButton } from '../buttons';
+import { Button } from '../button';
 import './header.scss';
 
 const Header = () => (
@@ -11,7 +11,11 @@ const Header = () => (
       height="100"
       alt="logo"
     />
-    <AddMovieButton />
+    <Button
+      variant="action"
+    >
+      + Add movie
+    </Button>
   </header>
 );
 

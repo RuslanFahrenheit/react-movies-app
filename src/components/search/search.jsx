@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heading } from '../heading';
 import { Input } from '../input';
-import { PrimaryButton } from '../buttons';
+import { Button } from '../button';
 import './search.scss';
 
 const Search = () => (
@@ -9,7 +9,11 @@ const Search = () => (
     <Heading level="h2" title="Find your movie" />
     <div className="search">
       <Input placeholder="What do you want to watch?" />
-      <PrimaryButton>Search</PrimaryButton>
+      <Button
+        variant="primary"
+      >
+        Search
+      </Button>
     </div>
   </div>
 );

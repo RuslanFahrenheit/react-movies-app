@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 const FilterListItem = ({
   title,
 }) => (
-  <button type="button">{title}</button>
+  <button
+    type="button"
+  >
+    {title}
+  </button>
 );
 
 FilterListItem.propTypes = {
