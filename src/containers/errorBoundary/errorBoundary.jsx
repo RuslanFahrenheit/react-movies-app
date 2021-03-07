@@ -1,18 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ErrorBoundary = ({
-  children,
-  hasError,
-}) => {
-  const OopsText = () => <p>Oops, something went wrong :(</p>;
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-  return <>{hasError ? <OopsText /> : children}</>;
-};
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    const { onError } = this.props;
+
+    onError(error, errorInfo);
+  }
+
+  render() {
+    const { hasError } = this.state;
+    const { children } = this.props;
+
+    if (hasError) {
+      return <h1>Oops, something went wrong.</h1>;
+    }
+
+    return children;
+  }
+}
+
+const {
+  string,
+  element,
+  node,
+  oneOfType,
+  func,
+} = PropTypes;
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.node,
-  hasError: PropTypes.bool,
+  children: oneOfType([string, element, node]),
+  onError: func,
 };
 
 export { ErrorBoundary };

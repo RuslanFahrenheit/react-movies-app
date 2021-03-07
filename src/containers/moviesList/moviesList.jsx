@@ -1,7 +1,6 @@
 import React from 'react';
 import { MovieCard } from '../../components/movieCard';
 import { Filter } from '../../components/filter';
-import { ErrorBoundary } from '../errorBoundary';
 
 const movies = [
   {
@@ -59,10 +58,9 @@ const sortingOptions = [
     id: 'genre2',
   },
 ];
-const hasError = false;
 
 const MoviesList = () => (
-  <ErrorBoundary hasError={hasError}>
+  <>
     <Filter
       genres={genres}
       resultsCount={4}
@@ -86,7 +84,7 @@ const MoviesList = () => (
         year={year}
       />
     ))}
-  </ErrorBoundary>
+  </>
 );
 
 export { MoviesList };
