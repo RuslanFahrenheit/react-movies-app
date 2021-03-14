@@ -9,10 +9,24 @@ const MovieCard = ({
   title,
   year,
   genre,
+  handleEdit,
+  handleDelete,
 }) => (
   <div className="movie-card">
     <img src={banner} alt={description} />
     <div className="movie-card__heading-holder">
+      <button
+        type="button"
+        onClick={handleEdit}
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
       <Heading level="h6" title={title} />
       <span className="movie-card__year">{year}</span>
     </div>
@@ -20,12 +34,19 @@ const MovieCard = ({
   </div>
 );
 
+const {
+  string,
+  func,
+} = PropTypes;
+
 MovieCard.propTypes = {
-  banner: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
+  banner: string.isRequired,
+  description: string.isRequired,
+  title: string.isRequired,
+  year: string.isRequired,
+  genre: string.isRequired,
+  handleEdit: func,
+  handleDelete: func,
 };
 
 export { MovieCard };

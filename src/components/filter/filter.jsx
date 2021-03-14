@@ -9,6 +9,7 @@ const Filter = ({
   genres,
   resultsCount,
   sortingOptions,
+  handleSorting,
 }) => (
   <div className="filter">
     {
@@ -17,15 +18,25 @@ const Filter = ({
       ))
     }
     <p>Sort By</p>
-    <Select options={sortingOptions} />
+    <Select
+      options={sortingOptions}
+      onChange={handleSorting}
+    />
     <ResultsCount count={resultsCount} />
   </div>
 );
 
+const {
+  instanceOf,
+  number,
+  func,
+} = PropTypes;
+
 Filter.propTypes = {
-  genres: PropTypes.instanceOf(Array),
-  resultsCount: PropTypes.number.isRequired,
-  sortingOptions: PropTypes.instanceOf(Array),
+  genres: instanceOf(Array),
+  resultsCount: number.isRequired,
+  sortingOptions: instanceOf(Array),
+  handleSorting: func,
 };
 
 export { Filter };

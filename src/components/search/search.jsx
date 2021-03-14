@@ -8,7 +8,9 @@ const Search = () => (
   <div className="search-wr">
     <Heading level="h2" title="Find your movie" />
     <div className="search">
-      <Input placeholder="What do you want to watch?" />
+      <Input
+        placeholder="What do you want to watch?"
+      />
       <Button
         variant="primary"
       >

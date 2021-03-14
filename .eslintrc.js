@@ -20,5 +20,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 0,
+    'jsx-a11y/label-has-associated-control': 'off',
   },
 };

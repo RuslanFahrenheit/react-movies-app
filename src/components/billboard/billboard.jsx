@@ -1,13 +1,22 @@
 import React from 'react';
-import { Header } from '../header';
-import { Search } from '../search';
+import PropTypes from 'prop-types';
 import './billboard.scss';
 
-const Billboard = () => (
+const Billboard = ({ children }) => (
   <div className="billboard">
-    <Header />
-    <Search />
+    {children}
   </div>
 );
+
+const {
+  string,
+  element,
+  node,
+  oneOfType,
+} = PropTypes;
+
+Billboard.propTypes = {
+  children: oneOfType([string, element, node]),
+};
 
 export { Billboard };

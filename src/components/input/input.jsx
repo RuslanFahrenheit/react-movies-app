@@ -5,17 +5,26 @@ import './input.scss';
 const Input = ({
   type = 'text',
   placeholder,
+  label,
 }) => (
-  <input
-    className={`input input--${type}`}
-    type={type}
-    placeholder={placeholder}
-  />
+  <label className="label">
+    {label}
+    <input
+      className={`input input--${type}`}
+      type={type}
+      placeholder={placeholder}
+    />
+  </label>
 );
 
+const {
+  string,
+} = PropTypes;
+
 Input.propTypes = {
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
+  type: string,
+  placeholder: string,
+  label: string,
 };
 
 export { Input };
