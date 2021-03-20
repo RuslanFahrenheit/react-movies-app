@@ -6,6 +6,7 @@ const Input = ({
   type = 'text',
   placeholder,
   label,
+  value,
 }) => (
   <label className="label">
     {label}
@@ -13,6 +14,7 @@ const Input = ({
       className={`input input--${type}`}
       type={type}
       placeholder={placeholder}
+      value={value}
     />
   </label>
 );
@@ -25,6 +27,7 @@ Input.propTypes = {
   type: string,
   placeholder: string,
   label: string,
+  value: string,
 };
 
 export { Input };

@@ -13,8 +13,8 @@ const Filter = ({
 }) => (
   <div className="filter">
     {
-      genres.map(({ type, id }) => (
-        <FilterListItem key={id} title={type} />
+      genres.map(({ text, id }) => (
+        <FilterListItem key={id} title={text} />
       ))
     }
     <p>Sort By</p>

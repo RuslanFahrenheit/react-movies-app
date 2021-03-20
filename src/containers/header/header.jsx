@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../../images/logo.svg';
 import './header.scss';
-import { addMovieForm } from '../../mocked';
+// import { addMovieForm } from '../../mocked';
 import { Button } from '../../components/button';
 import { Heading } from '../../components/heading';
 import { ModalWindow } from '../../components/modalWindow';
@@ -48,7 +48,7 @@ const Header = () => {
           level="h1"
         />
         <ActionMovieCard
-          form={addMovieForm}
+          form={{}}
           handleSubmit={closeModal}
           handleCancel={closeModal}
           submitBtnText="submit"

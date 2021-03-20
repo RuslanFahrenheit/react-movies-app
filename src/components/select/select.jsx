@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 const Select = ({
   options = [],
   selected,
-  selectId,
+  id,
   label,
   onChange,
   onBlur,
 }) => (
   <>
     {label && (
-      <label htmlFor={selectId}>{label}</label>
+      <label htmlFor={id}>{label}</label>
     )}
     <select
       className="select"
-      id={selectId}
+      id={id}
+      value={selected}
       onChange={onChange}
       onBlur={onBlur}
     >
-      {options.map(({ value, text, id }) => (
+      {options.map(({ value, text }) => (
         <option
-          key={id}
+          key={`${id}_${value}`}
           className="select__option"
           value={value}
-          selected={selected}
         >
           {text}
         </option>
@@ -43,7 +43,7 @@ const {
 Select.propTypes = {
   options: instanceOf(Array).isRequired,
   selected: bool,
-  selectId: string,
+  id: string,
   label: string,
   onChange: func,
   onBlur: func,

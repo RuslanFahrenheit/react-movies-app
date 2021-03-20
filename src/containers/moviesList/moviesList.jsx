@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  editMovieForm,
   moviesList,
   genres,
   sortingOptions,
@@ -13,13 +12,16 @@ import { Heading } from '../../components/heading';
 import { ActionMovieCard } from '../../components/actionMovieCard';
 
 const MoviesList = () => {
-  const [editModalIsOpen, setEditIsOpen] = useState(false);
-  const openEditModal = () => {
-    setEditIsOpen(true);
+  const [movieCard, setEditIsOpen] = useState(null);
+  const isEditModalOpened = Boolean(movieCard);
+
+  const openEditModal = (movie) => {
+    setEditIsOpen(movie);
   };
   const closeEditModal = () => {
-    setEditIsOpen(false);
+    setEditIsOpen(null);
   };
+
   const [deleteModalIsOpen, setDeleteIsOpen] = useState(false);
 
   const openDeleteModal = () => {
@@ -63,34 +65,23 @@ const MoviesList = () => {
         handleSorting={(e) => setSortType(e.target.value)}
       />
 
-      {movies.map(({
-        banner,
-        description,
-        genre,
-        id,
-        title,
-        year,
-      }) => (
+      {movies.map((movie) => (
         <MovieCard
-          key={id}
-          banner={banner}
-          description={description}
-          genre={genre}
-          title={title}
-          year={year}
-          handleEdit={openEditModal}
+          key={movie.id}
+          movie={movie}
+          handleEdit={() => openEditModal(movie)}
           handleDelete={openDeleteModal}
         />
       ))}
 
       <ModalWindow
-        isOpen={editModalIsOpen}
+        isOpen={isEditModalOpened}
         onRequestClose={closeEditModal}
       >
         <p>Movie ID</p>
         <p>ID MOVIE</p>
         <ActionMovieCard
-          form={editMovieForm}
+          form={movieCard}
           handleSubmit={closeEditModal}
           handleCancel={closeEditModal}
           submitBtnText="save"
