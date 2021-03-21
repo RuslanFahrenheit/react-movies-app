@@ -9,6 +9,7 @@ const moviesList = [
     url: 'https://someurl.com',
     overview: 'overview text',
     runtime: 'runtime text',
+    duration: '154 min',
   },
   {
     banner: 'http://placehold.jp/250x300.png',
@@ -20,6 +21,7 @@ const moviesList = [
     url: 'https://someurl.com',
     overview: 'overview text',
     runtime: 'runtime text',
+    duration: '100 min',
   },
   {
     banner: 'http://placehold.jp/250x300.png',
@@ -31,6 +33,7 @@ const moviesList = [
     url: 'https://someurl.com',
     overview: 'overview text',
     runtime: 'runtime text',
+    duration: '99 min',
   },
   {
     banner: 'http://placehold.jp/250x300.png',
@@ -42,6 +45,7 @@ const moviesList = [
     url: 'https://someurl.com',
     overview: 'overview text',
     runtime: 'runtime text',
+    duration: '120 min',
   },
 ];
 const genres = [

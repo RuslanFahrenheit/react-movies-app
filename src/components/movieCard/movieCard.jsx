@@ -7,6 +7,7 @@ const MovieCard = ({
   movie,
   handleEdit,
   handleDelete,
+  handleClick,
 }) => {
   const {
     banner,
@@ -18,7 +19,12 @@ const MovieCard = ({
 
   return (
     <div className="movie-card">
-      <img src={banner} alt={description} />
+      <button
+        type="button"
+        onClick={handleClick}
+      >
+        <img src={banner} alt={description} />
+      </button>
       <div className="movie-card__heading-holder">
         <button
           type="button"
@@ -56,6 +62,7 @@ MovieCard.propTypes = {
   }),
   handleEdit: func,
   handleDelete: func,
+  handleClick: func,
 };
 
 export { MovieCard };

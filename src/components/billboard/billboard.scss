@@ -1,4 +1,32 @@
 .billboard {
-  padding: 0 30px;
+  position: relative;
+  color: #fff;
   background-image: url("../../images/bg-billboard.jpg");
+
+  &__preview {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  &__preview-holder {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 15px;
+  }
+
+  &__preview-image {
+    margin-right: 50px;
+  }
+
+  &__preview-year,
+  &__preview-duration {
+    margin-right: 20px;
+    color: #f65261;
+  }
+
+  &__back-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }

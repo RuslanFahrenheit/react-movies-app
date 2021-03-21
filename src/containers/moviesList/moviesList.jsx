@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   moviesList,
   genres,
@@ -11,15 +12,15 @@ import { Button } from '../../components/button';
 import { Heading } from '../../components/heading';
 import { ActionMovieCard } from '../../components/actionMovieCard';
 
-const MoviesList = () => {
-  const [movieCard, setEditIsOpen] = useState(null);
+const MoviesList = ({ setPreview }) => {
+  const [movieCard, setMovieToEdit] = useState(null);
   const isEditModalOpened = Boolean(movieCard);
 
   const openEditModal = (movie) => {
-    setEditIsOpen(movie);
+    setMovieToEdit(movie);
   };
   const closeEditModal = () => {
-    setEditIsOpen(null);
+    setMovieToEdit(null);
   };
 
   const [deleteModalIsOpen, setDeleteIsOpen] = useState(false);
@@ -56,6 +57,10 @@ const MoviesList = () => {
     sortArray(sortType);
   }, [sortType]);
 
+  const setMoviePreview = (movie) => {
+    setPreview(movie);
+  };
+
   return (
     <>
       <Filter
@@ -71,6 +76,7 @@ const MoviesList = () => {
           movie={movie}
           handleEdit={() => openEditModal(movie)}
           handleDelete={openDeleteModal}
+          handleClick={() => setMoviePreview(movie)}
         />
       ))}
 
@@ -107,6 +113,14 @@ const MoviesList = () => {
       </ModalWindow>
     </>
   );
+};
+
+const {
+  func,
+} = PropTypes;
+
+MoviesList.propTypes = {
+  setPreview: func,
 };
 
 export { MoviesList };

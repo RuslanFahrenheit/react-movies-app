@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Billboard } from '../components/billboard';
 import { Header } from '../containers/header';
 import { Search } from '../components/search';
@@ -6,19 +6,36 @@ import { Main } from '../components/main';
 import { MoviesList } from '../containers/moviesList';
 import { ErrorBoundary } from '../containers/errorBoundary';
 
-const Home = () => (
-  <>
-    <Billboard>
-      <Header />
-      <Search />
-    </Billboard>
+const Home = () => {
+  const [moviePreview, setMoviePreview] = useState(null);
 
-    <Main>
-      <ErrorBoundary>
-        <MoviesList />
-      </ErrorBoundary>
-    </Main>
-  </>
-);
+  const setPreview = (movie) => {
+    setMoviePreview(movie);
+  };
+
+  const resetPreview = (movie) => {
+    setMoviePreview(movie);
+  };
+
+  return (
+    <>
+      <Billboard
+        preview={moviePreview}
+        resetPreview={resetPreview}
+      >
+        <Header />
+        <Search />
+      </Billboard>
+
+      <Main>
+        <ErrorBoundary>
+          <MoviesList
+            setPreview={setPreview}
+          />
+        </ErrorBoundary>
+      </Main>
+    </>
+  );
+};
 
 export { Home };
