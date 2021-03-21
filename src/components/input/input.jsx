@@ -14,7 +14,7 @@ const Input = ({
       className={`input input--${type}`}
       type={type}
       placeholder={placeholder}
-      value={value}
+      defaultValue={value}
     />
   </label>
 );

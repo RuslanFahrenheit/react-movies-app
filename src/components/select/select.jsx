@@ -16,7 +16,7 @@ const Select = ({
     <select
       className="select"
       id={id}
-      value={selected}
+      defaultValue={selected}
       onChange={onChange}
       onBlur={onBlur}
     >
@@ -34,7 +34,6 @@ const Select = ({
 );
 
 const {
-  bool,
   string,
   instanceOf,
   func,
@@ -42,7 +41,7 @@ const {
 
 Select.propTypes = {
   options: instanceOf(Array).isRequired,
-  selected: bool,
+  selected: string,
   id: string,
   label: string,
   onChange: func,
