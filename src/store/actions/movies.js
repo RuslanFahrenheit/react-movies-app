@@ -13,17 +13,23 @@ export const fetchMovies = (params) => async (dispatch) => {
   dispatch(setMovies(data));
 };
 
-export const addMovieItem = (movie) => async (dispatch) => {
-  const { data } = await addMovie(movie);
+export const addMovieItem = (movie) => async (dispatch, getState) => {
+  const currentFilterOptions = getState().filter;
+  await addMovie(movie);
+  const { data } = await getMovies(currentFilterOptions);
   dispatch(setMovies(data));
 };
 
-export const editMovieItem = (movie) => async (dispatch) => {
-  const { data } = await editMovie(movie);
+export const editMovieItem = (movieId, movie) => async (dispatch, getState) => {
+  const currentFilterOptions = getState().filter;
+  await editMovie(movieId, movie);
+  const { data } = await getMovies(currentFilterOptions);
   dispatch(setMovies(data));
 };
 
-export const deleteMovieItem = (movie) => async (dispatch) => {
-  const { data } = await deleteMovie(movie);
+export const deleteMovieItem = (movieId) => async (dispatch, getState) => {
+  const currentFilterOptions = getState().filter;
+  await deleteMovie(movieId);
+  const { data } = await getMovies(currentFilterOptions);
   dispatch(setMovies(data));
 };

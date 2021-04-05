@@ -9,6 +9,6 @@ export const getMovies = (params) => api.get('/movies', { params });
 
 export const addMovie = (movie) => api.post('/movies', { ...movie });
 
-export const editMovie = (movie) => api.put('/movies', { ...movie });
+export const editMovie = (movieId, movie) => api.put(`/movies/${movieId}`, { ...movie });
 
-export const deleteMovie = (movie) => api.delete('/movies', { data: { ...movie } });
+export const deleteMovie = (movieId) => api.delete(`/movies/${movieId}`);

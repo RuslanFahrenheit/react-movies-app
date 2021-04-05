@@ -29,8 +29,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchDataMovies: (params) => dispatch(fetchMovies(params)),
-  editDataMovie: (params) => dispatch(editMovieItem(params)),
-  deleteDataMovie: (params) => dispatch(deleteMovieItem(params)),
+  editDataMovie: (movieId, movie) => dispatch(editMovieItem(movieId, movie)),
+  deleteDataMovie: (movieId) => dispatch(deleteMovieItem(movieId)),
   setSortByData: (params) => dispatch(setSortBy(params)),
   setFilterByData: (params) => dispatch(setFilterBy(params)),
   clearFilterData: () => dispatch(clearFilter()),
@@ -56,7 +56,7 @@ export const MoviesList = ({
   };
 
   const handleEditMovie = async (movie) => {
-    await editDataMovie(movie);
+    await editDataMovie(movie.id, movie);
     closeEditModal();
   };
 
@@ -70,7 +70,7 @@ export const MoviesList = ({
     setMovieToDelete(null);
   };
   const handleDeleteMovie = () => {
-    deleteDataMovie(movieCardToDelete);
+    deleteDataMovie(movieCardToDelete.id);
     closeDeleteModal();
   };
 
