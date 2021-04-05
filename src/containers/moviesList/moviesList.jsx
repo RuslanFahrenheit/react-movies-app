@@ -68,10 +68,6 @@ export const MoviesList = ({
     closeDeleteModal();
   };
 
-  useEffect(() => {
-    fetchDataMovies();
-  }, []);
-
   const movies = useSelector((state) => state.movies);
 
   const setMoviePreview = (movie) => {
@@ -82,8 +78,11 @@ export const MoviesList = ({
 
   const handleSorting = (value) => {
     setSortByData(value);
-    fetchDataMovies(searchParams);
   };
+
+  useEffect(() => {
+    fetchDataMovies(searchParams);
+  }, [searchParams]);
 
   return (
     <>

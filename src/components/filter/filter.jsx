@@ -11,8 +11,6 @@ const Filter = ({
   sortingOptions,
   handleSorting,
 }) => {
-  // const [formData, updateFormData] = useState('');
-
   const handleChange = (e) => {
     handleSorting(e.target.value);
   };
