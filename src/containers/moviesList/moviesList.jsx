@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  moviesList,
+  fetchMovies,
+  editMovieItem,
+  deleteMovieItem,
+} from '../../store/actions/movies';
+import {
+  setSortBy,
+} from '../../store/actions/filters';
+import {
   genres,
   sortingOptions,
 } from '../../mocked';
@@ -12,7 +20,25 @@ import { Button } from '../../components/button';
 import { Heading } from '../../components/heading';
 import { ActionMovieCard } from '../../components/actionMovieCard';
 
-const MoviesList = ({ setPreview }) => {
+const mapStateToProps = (state) => {
+  const { movie, filter } = state;
+  return { movie, filter };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchDataMovies: (params) => dispatch(fetchMovies(params)),
+  editDataMovie: (params) => dispatch(editMovieItem(params)),
+  deleteDataMovie: (params) => dispatch(deleteMovieItem(params)),
+  setSortByData: (params) => dispatch(setSortBy(params)),
+});
+
+export const MoviesList = ({
+  setPreview,
+  fetchDataMovies,
+  editDataMovie,
+  deleteDataMovie,
+  setSortByData,
+}) => {
   const [movieCard, setMovieToEdit] = useState(null);
   const isEditModalOpened = Boolean(movieCard);
 
@@ -23,42 +49,40 @@ const MoviesList = ({ setPreview }) => {
     setMovieToEdit(null);
   };
 
-  const [deleteModalIsOpen, setDeleteIsOpen] = useState(false);
+  const handleEditMovie = async (movie) => {
+    await editDataMovie(movie);
+    closeEditModal();
+  };
 
-  const openDeleteModal = () => {
-    setDeleteIsOpen(true);
+  const [movieCardToDelete, setMovieToDelete] = useState(null);
+  const isDeleteModalOpened = Boolean(movieCardToDelete);
+
+  const openDeleteModal = (movie) => {
+    setMovieToDelete(movie);
   };
   const closeDeleteModal = () => {
-    setDeleteIsOpen(false);
+    setMovieToDelete(null);
+  };
+  const handleDeleteMovie = () => {
+    deleteDataMovie(movieCardToDelete);
+    closeDeleteModal();
   };
 
-  const [movies, setData] = useState([...moviesList]);
-  const [sortType, setSortType] = useState('genres');
-
   useEffect(() => {
-    // TODO: refactor into reusable function
-    const sortArray = (type) => {
-      const types = {
-        genre: 'genre',
-        year: 'year',
-      };
-      const sortProperty = types[type];
-      const sorted = [...movies].sort((a, b) => {
-        if (a[sortProperty] < b[sortProperty]) {
-          return -1;
-        }
-        if (a[sortProperty] > b[sortProperty]) {
-          return 1;
-        }
-        return 0;
-      });
-      setData(sorted);
-    };
-    sortArray(sortType);
-  }, [sortType]);
+    fetchDataMovies();
+  }, []);
+
+  const movies = useSelector((state) => state.movies);
 
   const setMoviePreview = (movie) => {
     setPreview(movie);
+  };
+
+  const searchParams = useSelector((state) => state.filter);
+
+  const handleSorting = (value) => {
+    setSortByData(value);
+    fetchDataMovies(searchParams);
   };
 
   return (
@@ -67,7 +91,7 @@ const MoviesList = ({ setPreview }) => {
         genres={genres}
         resultsCount={4}
         sortingOptions={sortingOptions}
-        handleSorting={(e) => setSortType(e.target.value)}
+        handleSorting={handleSorting}
       />
 
       {movies.map((movie) => (
@@ -75,7 +99,7 @@ const MoviesList = ({ setPreview }) => {
           key={movie.id}
           movie={movie}
           handleEdit={() => openEditModal(movie)}
-          handleDelete={openDeleteModal}
+          handleDelete={() => openDeleteModal(movie)}
           handleClick={() => setMoviePreview(movie)}
         />
       ))}
@@ -88,7 +112,7 @@ const MoviesList = ({ setPreview }) => {
         <p>ID MOVIE</p>
         <ActionMovieCard
           form={movieCard}
-          handleSubmit={closeEditModal}
+          handleSubmit={handleEditMovie}
           handleCancel={closeEditModal}
           submitBtnText="save"
           cancelBtnText="reset"
@@ -96,7 +120,7 @@ const MoviesList = ({ setPreview }) => {
       </ModalWindow>
 
       <ModalWindow
-        isOpen={deleteModalIsOpen}
+        isOpen={isDeleteModalOpened}
         onRequestClose={closeDeleteModal}
       >
         <Heading
@@ -106,7 +130,7 @@ const MoviesList = ({ setPreview }) => {
         <p>Are you sure you want to delete this movie?</p>
         <Button
           variant="secondary"
-          onClick={closeDeleteModal}
+          onClick={handleDeleteMovie}
         >
           Confirm
         </Button>
@@ -121,6 +145,10 @@ const {
 
 MoviesList.propTypes = {
   setPreview: func,
+  fetchDataMovies: func,
+  editDataMovie: func,
+  deleteDataMovie: func,
+  setSortByData: func,
 };
 
-export { MoviesList };
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

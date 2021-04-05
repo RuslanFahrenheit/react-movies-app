@@ -7,20 +7,25 @@ const Input = ({
   placeholder,
   label,
   value,
+  name,
+  onChange,
 }) => (
   <label className="label">
     {label}
     <input
       className={`input input--${type}`}
       type={type}
+      name={name}
       placeholder={placeholder}
       defaultValue={value}
+      onChange={onChange}
     />
   </label>
 );
 
 const {
   string,
+  func,
 } = PropTypes;
 
 Input.propTypes = {
@@ -28,6 +33,8 @@ Input.propTypes = {
   placeholder: string,
   label: string,
   value: string,
+  name: string,
+  onChange: func,
 };
 
 export { Input };

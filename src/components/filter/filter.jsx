@@ -10,21 +10,29 @@ const Filter = ({
   resultsCount,
   sortingOptions,
   handleSorting,
-}) => (
-  <div className="filter">
-    {
-      genres.map(({ text, id }) => (
-        <FilterListItem key={id} title={text} />
-      ))
-    }
-    <p>Sort By</p>
-    <Select
-      options={sortingOptions}
-      onChange={handleSorting}
-    />
-    <ResultsCount count={resultsCount} />
-  </div>
-);
+}) => {
+  // const [formData, updateFormData] = useState('');
+
+  const handleChange = (e) => {
+    handleSorting(e.target.value);
+  };
+
+  return (
+    <div className="filter">
+      {
+        genres.map(({ text, id }) => (
+          <FilterListItem key={id} title={text} />
+        ))
+      }
+      <p>Sort By</p>
+      <Select
+        options={sortingOptions}
+        onChange={handleChange}
+      />
+      <ResultsCount count={resultsCount} />
+    </div>
+  );
+};
 
 const {
   instanceOf,

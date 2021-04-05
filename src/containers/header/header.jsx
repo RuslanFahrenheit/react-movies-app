@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import logo from '../../images/logo.svg';
 import './header.scss';
-// import { addMovieForm } from '../../mocked';
+import { addMovieItem } from '../../store/actions/movies';
 import { Button } from '../../components/button';
 import { Heading } from '../../components/heading';
 import { ModalWindow } from '../../components/modalWindow';
 import { ActionMovieCard } from '../../components/actionMovieCard';
 
-const Header = () => {
+const mapStateToProps = (state) => {
+  const { movie } = state;
+  return { movie };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addMovie: (params) => dispatch(addMovieItem(params)),
+});
+
+const Header = ({
+  addMovie,
+}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
   };
   const closeModal = () => {
     setIsOpen(false);
+  };
+  const handleAddMovie = async (movie) => {
+    await addMovie(movie);
+    closeModal();
   };
 
   return (
@@ -49,7 +66,7 @@ const Header = () => {
         />
         <ActionMovieCard
           form={{}}
-          handleSubmit={closeModal}
+          handleSubmit={handleAddMovie}
           handleCancel={closeModal}
           submitBtnText="submit"
           cancelBtnText="reset"
@@ -59,4 +76,12 @@ const Header = () => {
   );
 };
 
-export { Header };
+const {
+  func,
+} = PropTypes;
+
+Header.propTypes = {
+  addMovie: func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
