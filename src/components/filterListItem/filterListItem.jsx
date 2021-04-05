@@ -6,12 +6,14 @@ const FilterListItem = ({
   value,
   handleClick,
 }) => (
-  <button
-    type="button"
-    onClick={() => handleClick(value)}
-  >
-    {title}
-  </button>
+  <>
+    <button
+      type="button"
+      onClick={() => handleClick(value)}
+    >
+      {title}
+    </button>
+  </>
 );
 
 const {
@@ -21,8 +23,8 @@ const {
 
 FilterListItem.propTypes = {
   title: string.isRequired,
-  handleClick: func,
   value: string,
+  handleClick: func,
 };
 
 export { FilterListItem };

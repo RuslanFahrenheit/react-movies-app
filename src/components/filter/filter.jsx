@@ -11,6 +11,7 @@ const Filter = ({
   sortingOptions,
   handleSorting,
   handleFiltering,
+  handleResetFilter,
 }) => {
   const handleChange = (e) => {
     handleSorting(e.target.value);
@@ -18,6 +19,10 @@ const Filter = ({
 
   const handleClickListItem = (item) => {
     handleFiltering(item);
+  };
+
+  const handleReset = () => {
+    handleResetFilter();
   };
 
   return (
@@ -32,6 +37,12 @@ const Filter = ({
           />
         ))
       }
+      <button
+        type="button"
+        onClick={handleReset}
+      >
+        Reset filter
+      </button>
       <p>Sort By</p>
       <Select
         options={sortingOptions}
@@ -54,6 +65,7 @@ Filter.propTypes = {
   sortingOptions: instanceOf(Array),
   handleSorting: func,
   handleFiltering: func,
+  handleResetFilter: func,
 };
 
 export { Filter };

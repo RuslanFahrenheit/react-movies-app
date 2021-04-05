@@ -9,6 +9,7 @@ import {
 import {
   setSortBy,
   setFilterBy,
+  clearFilter,
 } from '../../store/actions/filters';
 import {
   genres,
@@ -32,6 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   deleteDataMovie: (params) => dispatch(deleteMovieItem(params)),
   setSortByData: (params) => dispatch(setSortBy(params)),
   setFilterByData: (params) => dispatch(setFilterBy(params)),
+  clearFilterData: () => dispatch(clearFilter()),
 });
 
 export const MoviesList = ({
@@ -41,6 +43,7 @@ export const MoviesList = ({
   deleteDataMovie,
   setSortByData,
   setFilterByData,
+  clearFilterData,
 }) => {
   const [movieCard, setMovieToEdit] = useState(null);
   const isEditModalOpened = Boolean(movieCard);
@@ -87,6 +90,10 @@ export const MoviesList = ({
     setFilterByData(value);
   };
 
+  const handleResetFilter = () => {
+    clearFilterData();
+  };
+
   useEffect(() => {
     fetchDataMovies(searchParams);
   }, [searchParams]);
@@ -99,6 +106,7 @@ export const MoviesList = ({
         sortingOptions={sortingOptions}
         handleSorting={handleSorting}
         handleFiltering={handleFiltering}
+        handleResetFilter={handleResetFilter}
       />
 
       {movies.map((movie) => (
@@ -157,6 +165,7 @@ MoviesList.propTypes = {
   deleteDataMovie: func,
   setSortByData: func,
   setFilterByData: func,
+  clearFilterData: func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

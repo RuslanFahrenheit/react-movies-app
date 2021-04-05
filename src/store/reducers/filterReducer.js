@@ -1,6 +1,7 @@
 import {
   SET_SORT_BY,
   SET_FILTER_BY,
+  CLEAR_FILTER,
 } from '../actionsTypes';
 
 const initialState = {
@@ -20,6 +21,14 @@ const filterReducer = (state = initialState, action) => {
       const { sortBy } = state;
       const filter = {
         filter: action.payload,
+        sortBy,
+      };
+      return { ...state, ...filter };
+    }
+    case CLEAR_FILTER: {
+      const { sortBy } = state;
+      const filter = {
+        filter: '',
         sortBy,
       };
       return { ...state, ...filter };
