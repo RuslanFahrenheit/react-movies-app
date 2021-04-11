@@ -16,7 +16,8 @@ const Select = ({
     <select
       className="select"
       id={id}
-      defaultValue={selected}
+      // defaultValue={selected}
+      value={selected}
       onChange={onChange}
       onBlur={onBlur}
     >
