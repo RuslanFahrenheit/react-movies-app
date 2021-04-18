@@ -1,1 +1,1 @@
-export * from './billboard';
+export { default as Billboard } from './billboard';

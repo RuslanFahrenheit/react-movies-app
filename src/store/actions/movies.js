@@ -8,8 +8,8 @@ import { SET_MOVIES } from '../actionsTypes';
 
 export const setMovies = (value) => ({ type: SET_MOVIES, payload: value });
 
-export const fetchMovies = (params) => async (dispatch) => {
-  const { data } = await getMovies(params);
+export const fetchMovies = (params, searchString) => async (dispatch) => {
+  const { data } = await getMovies(params, searchString);
   dispatch(setMovies(data));
 };
 

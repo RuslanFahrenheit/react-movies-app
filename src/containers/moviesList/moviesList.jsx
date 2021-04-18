@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import qs from 'qs';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   fetchMovies,
   editMovieItem,
@@ -11,6 +13,7 @@ import {
   setFilterBy,
   clearFilter,
 } from '../../store/actions/filters';
+import { setMoviePreview } from '../../store/actions/preview';
 import {
   genres,
   sortingOptions,
@@ -21,6 +24,7 @@ import { ModalWindow } from '../../components/modalWindow';
 import { Button } from '../../components/button';
 import { Heading } from '../../components/heading';
 import { ActionMovieCard } from '../../components/actionMovieCard';
+import { NoMoviesFound } from '../../components/noMoviesFound';
 
 const mapStateToProps = (state) => {
   const { movie, filter } = state;
@@ -34,16 +38,17 @@ const mapDispatchToProps = (dispatch) => ({
   setSortByData: (params) => dispatch(setSortBy(params)),
   setFilterByData: (params) => dispatch(setFilterBy(params)),
   clearFilterData: () => dispatch(clearFilter()),
+  setMoviePreviewData: (movie) => dispatch(setMoviePreview(movie)),
 });
 
 export const MoviesList = ({
-  setPreview,
   fetchDataMovies,
   editDataMovie,
   deleteDataMovie,
   setSortByData,
   setFilterByData,
   clearFilterData,
+  setMoviePreviewData,
 }) => {
   const [movieCard, setMovieToEdit] = useState(null);
   const isEditModalOpened = Boolean(movieCard);
@@ -76,8 +81,12 @@ export const MoviesList = ({
 
   const movies = useSelector((state) => state.movies);
 
-  const setMoviePreview = (movie) => {
-    setPreview(movie);
+  const history = useHistory();
+  const location = useLocation();
+
+  const handleMoviePreview = (movie) => {
+    setMoviePreviewData(movie);
+    history.push(`/film/${movie.id}`);
   };
 
   const searchParams = useSelector((state) => state.filter);
@@ -94,30 +103,37 @@ export const MoviesList = ({
     clearFilterData();
   };
 
+  const searchParamsFromURL = qs.parse(location.search, { ignoreQueryPrefix: true });
+
   useEffect(() => {
-    fetchDataMovies(searchParams);
+    if (!searchParamsFromURL.search) {
+      fetchDataMovies(searchParams);
+    }
   }, [searchParams]);
 
   return (
     <>
       <Filter
         genres={genres}
-        resultsCount={4}
+        resultsCount={movies.length}
         sortingOptions={sortingOptions}
         handleSorting={handleSorting}
         handleFiltering={handleFiltering}
         handleResetFilter={handleResetFilter}
       />
 
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          handleEdit={() => openEditModal(movie)}
-          handleDelete={() => openDeleteModal(movie)}
-          handleClick={() => setMoviePreview(movie)}
-        />
-      ))}
+      {
+        movies.length
+          ? movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              handleEdit={() => openEditModal(movie)}
+              handleDelete={() => openDeleteModal(movie)}
+              handleClick={() => handleMoviePreview(movie)}
+            />
+          )) : <NoMoviesFound />
+      }
 
       <ModalWindow
         isOpen={isEditModalOpened}
@@ -159,13 +175,13 @@ const {
 } = PropTypes;
 
 MoviesList.propTypes = {
-  setPreview: func,
   fetchDataMovies: func,
   editDataMovie: func,
   deleteDataMovie: func,
   setSortByData: func,
   setFilterByData: func,
   clearFilterData: func,
+  setMoviePreviewData: func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

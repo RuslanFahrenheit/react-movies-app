@@ -5,7 +5,7 @@ const api = axios.create({
   responseType: 'json',
 });
 
-export const getMovies = (params) => api.get('/movies', { params });
+export const getMovies = (params, searchString = '') => api.get(`/movies?search=${searchString}`, { params });
 
 export const addMovie = (movie) => api.post('/movies', { ...movie });
 

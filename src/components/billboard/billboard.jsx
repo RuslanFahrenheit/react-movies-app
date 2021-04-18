@@ -1,31 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 import { Button } from '../button';
 import './billboard.scss';
+import { clearMoviePreview } from '../../store/actions/preview';
+
+const mapStateToProps = (state) => {
+  const { movie, filter } = state;
+  return { movie, filter };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  clearMoviePreviewData: () => dispatch(clearMoviePreview()),
+});
 
 const Billboard = ({
   children,
-  preview,
-  resetPreview,
+  clearMoviePreviewData,
 }) => {
+  const moviePreview = useSelector((state) => state.preview);
+  const hasMoviePreview = !_.isEmpty(moviePreview);
   const {
     banner,
     title,
     year,
     duration,
     description,
-  } = preview || {};
-  const [moviePreview, setMoviePreview] = useState(preview);
-  const hasMoviePreview = !_.isEmpty(moviePreview);
+  } = moviePreview;
 
-  useEffect(() => {
-    setMoviePreview(preview);
-  }, [preview]);
+  const history = useHistory();
 
   const hidePreview = () => {
-    setMoviePreview(null);
-    resetPreview(null);
+    clearMoviePreviewData();
+    history.push('/');
   };
 
   return (
@@ -71,20 +80,12 @@ const {
   element,
   node,
   oneOfType,
-  shape,
   func,
 } = PropTypes;
 
 Billboard.propTypes = {
   children: oneOfType([string, element, node]),
-  preview: shape({
-    banner: string,
-    title: string,
-    year: string,
-    duration: string,
-    description: string,
-  }),
-  resetPreview: func,
+  clearMoviePreviewData: func,
 };
 
-export { Billboard };
+export default connect(mapStateToProps, mapDispatchToProps)(Billboard);
