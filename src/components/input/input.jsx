@@ -17,7 +17,7 @@ const Input = ({
       type={type}
       name={name}
       placeholder={placeholder}
-      defaultValue={value}
+      value={value}
       onChange={onChange}
     />
   </label>

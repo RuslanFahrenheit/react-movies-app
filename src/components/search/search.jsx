@@ -35,18 +35,17 @@ const Search = ({
   const location = useLocation();
 
   const handleSearch = () => {
-    searchDataMovies(queryParamsFromStore, searchString);
-    history.push(`?search=${searchString}`);
+    history.push({ pathname: '/', search: `?search=${searchString}` });
   };
 
-  const searchParamsFromURL = qs.parse(location.search, { ignoreQueryPrefix: true });
-
   useEffect(() => {
-    if (searchParamsFromURL.search) {
-      setSearchString(searchParamsFromURL.search);
-      searchDataMovies(queryParamsFromStore, searchParamsFromURL.search);
+    const searchParamsFromURL = qs.parse(location.search, { ignoreQueryPrefix: true }).search;
+
+    if (location.search) {
+      setSearchString(searchParamsFromURL);
+      searchDataMovies(queryParamsFromStore, searchParamsFromURL);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className="search-wr">
@@ -55,7 +54,7 @@ const Search = ({
         <Input
           placeholder={placeholder}
           onChange={onSearchChange}
-          value={searchParamsFromURL.search}
+          value={searchString}
         />
         <Button
           variant="primary"

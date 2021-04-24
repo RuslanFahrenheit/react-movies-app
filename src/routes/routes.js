@@ -1,6 +1,7 @@
 import {
   Home,
 } from '../pages/home';
+import { URLS } from '../constants';
 
 const routes = [
   {
@@ -10,7 +11,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/film/:id',
+    path: `${URLS.film}/:id`,
     key: 'FILM',
     exact: true,
     component: Home,

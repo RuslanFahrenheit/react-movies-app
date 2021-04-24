@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import qs from 'qs';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { URLS } from '../../constants';
+import { getCurrentBasePath } from '../../utils/helpers';
 import {
   fetchMovies,
   editMovieItem,
@@ -83,11 +85,22 @@ export const MoviesList = ({
 
   const history = useHistory();
   const location = useLocation();
+  const { id } = useParams();
 
   const handleMoviePreview = (movie) => {
-    setMoviePreviewData(movie);
-    history.push(`/film/${movie.id}`);
+    history.push(`${URLS.film}/${movie.id}`);
   };
+
+  const basePath = getCurrentBasePath(location);
+
+  useEffect(() => {
+    if (basePath === URLS.film && movies.length) {
+      const selectedMovie = movies.filter((movie) => movie.id === id)[0];
+      setMoviePreviewData(selectedMovie);
+    } else {
+      setMoviePreviewData({});
+    }
+  });
 
   const searchParams = useSelector((state) => state.filter);
 
@@ -103,10 +116,10 @@ export const MoviesList = ({
     clearFilterData();
   };
 
-  const searchParamsFromURL = qs.parse(location.search, { ignoreQueryPrefix: true });
+  const searchParamsFromURL = qs.parse(location.search, { ignoreQueryPrefix: true }).search;
 
   useEffect(() => {
-    if (!searchParamsFromURL.search) {
+    if (!searchParamsFromURL) {
       fetchDataMovies(searchParams);
     }
   }, [searchParams]);
