@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from './routes';
-import { NotFound } from '../pages/notFound';
+import { URLS } from '../constants';
 
 const RouteWithSubRoutes = (route) => (
   <Route
@@ -17,7 +17,7 @@ const Routes = () => (
       {routes.map((route) => (
         <RouteWithSubRoutes key={route.key} {...route} />
       ))}
-      <Route component={() => <NotFound />} />
+      <Route render={() => <Redirect to={URLS.notFound} />} />
     </Switch>
   </>
 );

@@ -1,7 +1,6 @@
-import {
-  Home,
-} from '../pages/home';
 import { URLS } from '../constants';
+import { Home } from '../pages/home';
+import { NotFound } from '../pages/notFound';
 
 const routes = [
   {
@@ -15,6 +14,12 @@ const routes = [
     key: 'FILM',
     exact: true,
     component: Home,
+  },
+  {
+    path: `${URLS.notFound}`,
+    key: '404',
+    exact: true,
+    component: NotFound,
   },
 ];
 
