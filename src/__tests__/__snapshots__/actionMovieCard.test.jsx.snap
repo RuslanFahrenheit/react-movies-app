@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a heading 1`] = `
+"<form><label class=\\"label\\">title<input class=\\"input input--text\\" type=\\"text\\" name=\\"title\\" placeholder=\\"Select title\\" value=\\"\\"></label><label class=\\"label\\">release date<input class=\\"input input--text\\" type=\\"text\\" name=\\"year\\" placeholder=\\"Select date\\" value=\\"\\"></label><label class=\\"label\\">movie url<input class=\\"input input--text\\" type=\\"text\\" name=\\"url\\" placeholder=\\"Movie URL here\\" value=\\"\\"></label><label for=\\"\\">genre</label><select class=\\"select\\" id=\\"\\">
+    <option class=\\"select__option\\" value=\\"drama\\">Drama</option>
+    <option class=\\"select__option\\" value=\\"comedy\\">Comedy</option>
+  </select><label class=\\"label\\">overview<input class=\\"input input--text\\" type=\\"text\\" name=\\"overview\\" placeholder=\\"Overview here\\" value=\\"\\"></label><label class=\\"label\\">runtime<input class=\\"input input--text\\" type=\\"text\\" name=\\"runtime\\" placeholder=\\"Runtime here\\" value=\\"\\"></label><button class=\\"button button--secondary\\" type=\\"button\\">reset</button><button class=\\"button button--primary\\" type=\\"submit\\">submit</button></form>"
+`;
