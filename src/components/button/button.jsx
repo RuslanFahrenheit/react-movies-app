@@ -44,7 +44,7 @@ Button.propTypes = {
   component: oneOfType([string, func]),
   onClick: func,
   type: string,
-  variant: oneOf(['primary', 'secondary', 'action']),
+  variant: oneOf(['primary', 'secondary']),
   expanded: bool,
   additionalClass: string,
 };

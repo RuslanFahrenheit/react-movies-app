@@ -43,7 +43,7 @@ const Header = ({
           alt="logo"
         />
         <Button
-          variant="action"
+          variant="secondary"
           onClick={openModal}
         >
           + Add movie
