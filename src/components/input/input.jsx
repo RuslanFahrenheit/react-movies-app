@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './input.scss';
 
+// PATTERN: Controlled component (input)
+// handling form state
 const Input = ({
   type = 'text',
   placeholder,

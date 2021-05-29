@@ -5,6 +5,8 @@ import './button.scss';
 
 const Button = ({
   children,
+  // PATTERN: High Order Component
+  // receives a component as an argument and return a new component
   component: ButtonComponent = 'button',
   onClick,
   type = 'button',

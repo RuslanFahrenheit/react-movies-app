@@ -43,6 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
   setMoviePreviewData: (movie) => dispatch(setMoviePreview(movie)),
 });
 
+// PATTERN: Container Component
+// The container does data fetching and then renders its sub-components.
 export const MoviesList = ({
   fetchDataMovies,
   editDataMovie,
